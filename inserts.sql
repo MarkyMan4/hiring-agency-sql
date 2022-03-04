@@ -13,7 +13,7 @@ insert into agency_api_securityquestion (question) values
 insert into agency_api_educationtype (name) values ('Bachelors'), ('Masters');
 
 -- service types
-insert into agency_api_servicetype (name) values ('Nurse'), ('Physiotherapist');
+insert into agency_api_servicetype (name, hourly_rate) values ('Nurse', 32.45), ('Physiotherapist', 36.68);
 
 -- create security question answers (only need to do this for admin, other users add answers through the app)
 insert into agency_api_securityquestionanswer (answer, question_id, user_id) values
