@@ -11,12 +11,16 @@ insert into agency_api_securityquestion (question) values
 
 -- education types
 insert into agency_api_educationtype (name) values ('Bachelors'), ('Masters');
+insert into agency_api_educationtype (name) values ('PHD');
 
 -- service types
-insert into agency_api_servicetype (name, hourly_rate) values ('Nurse', 32.45), ('Physiotherapist', 36.68);
+insert into agency_api_servicetype (name, hourly_rate) values ('Nurse', 50.0), ('Physiotherapist', 60.0);
+insert into agency_api_servicetype (name, hourly_rate) values ('Psychologist', 70.0);
 
 -- create security question answers (only need to do this for admin, other users add answers through the app)
 insert into agency_api_securityquestionanswer (answer, question_id, user_id) values
 ('test', 1, 1), -- replace third item with ID of your admin user
 ('test', 2, 1),
 ('test', 3, 1);
+
+select * from agency_api_healthcareprofessional;
