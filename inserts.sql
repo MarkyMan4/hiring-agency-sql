@@ -17,10 +17,18 @@ insert into agency_api_educationtype (name) values ('PHD');
 insert into agency_api_servicetype (name, hourly_rate) values ('Nurse', 50.0), ('Physiotherapist', 60.0);
 insert into agency_api_servicetype (name, hourly_rate) values ('Psychologist', 70.0);
 
+-- update earliest and latest work times for each type of HP
+update agency_api_servicetype
+set 
+	earliest_work_time = '06:00:00'::time,
+	latest_work_time = 
+		case
+			when id in (1, 2) then '18:00:00'::time
+			else '20:00:00'::time
+		end;
+
 -- create security question answers (only need to do this for admin, other users add answers through the app)
 insert into agency_api_securityquestionanswer (answer, question_id, user_id) values
 ('test', 1, 1), -- replace third item with ID of your admin user
 ('test', 2, 1),
 ('test', 3, 1);
-
-select * from agency_api_healthcareprofessional;
