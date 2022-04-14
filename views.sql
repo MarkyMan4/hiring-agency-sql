@@ -32,7 +32,10 @@ create or replace view agency_api_pendingpayment as (
             inner join payment_history ph
                 on hp.id = ph.healthcare_professional_id
     )
-    select *
+    select 
+        row_number() over(partition by user_id order by amt_owed) as id,
+        *
     from money_owed
     where amt_owed > 0
+    order by amt_owed desc
 );
