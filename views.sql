@@ -21,19 +21,19 @@ create or replace view agency_api_pendingpayment as (
             usr.username,
             hp.hourly_rate,
             wh.hours_worked,
-            ph.amt_paid,
-            (hp.hourly_rate * wh.hours_worked) - ph.amt_paid as amt_owed
+            coalesce(ph.amt_paid, 0) as amt_paid,
+            (hp.hourly_rate * wh.hours_worked) - coalesce(ph.amt_paid, 0) as amt_owed
         from
             agency_api_healthcareprofessional hp
             inner join auth_user usr
                 on hp.user_id = usr.id
             inner join work_history wh
                 on hp.id = wh.healthcare_professional_id
-            inner join payment_history ph
+            left join payment_history ph
                 on hp.id = ph.healthcare_professional_id
     )
     select 
-        row_number() over(partition by user_id order by amt_owed) as id,
+        row_number() over(partition by 1 order by user_id) as id,
         *
     from money_owed
     where amt_owed > 0
